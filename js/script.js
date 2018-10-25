@@ -28,9 +28,20 @@ function createCypherArray(cleanArray, length, height) {
     }
   }
   // console.log(cypherArray);
+  return cypherArray;
 }
 
-function cleanedResults()
+function cleanedResults(word) {
+  const spacing = 6;
+
+  for (var i=0; i<word.length;i+=spacing) {
+    word.splice(i, 0, " ");
+  }
+
+  console.log(word.join(""));
+
+
+}
 
 $(function() {
 
@@ -44,7 +55,7 @@ $(function() {
     var cleanedSentence = alphaCharsOnly(userInput);
     var coords = buildCypherGrid(cleanedSentence.length);
 
-    createCypherArray(cleanedSentence, coords.length, coords.height);
+    cleanedResults(createCypherArray(cleanedSentence, coords.length, coords.height));
     // coords.height
     // coord.length
 
