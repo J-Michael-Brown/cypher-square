@@ -1,0 +1,30 @@
+body {
+  margin-top: 30px;
+}
+
+table {
+  font-size: 24px;
+  margin: auto;
+}
+
+td {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.result-area {
+  display: none;
+  margin: 40px;
+}
+
+.result-area p{
+  font-family: 'Tangerine', cursive;
+  font-size: 32px;
+  text-align: center;
+}
+
+#results-graph {
+  margin-bottom: 30px;
+}

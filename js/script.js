@@ -15,7 +15,6 @@ function alphaCharsOnly(dirtyArray) { // takes user input sentence and gives an 
   });
 
   return results
-  // return buildCypherGrid(results.length);
 }
 
 function createCypherArray(cleanArray, length, height) {
@@ -27,7 +26,6 @@ function createCypherArray(cleanArray, length, height) {
       }
     }
   }
-  // console.log(cypherArray);
   return cypherArray;
 }
 
@@ -37,27 +35,59 @@ function cleanedResults(word) {
   for (var i=0; i<word.length;i+=spacing) {
     word.splice(i, 0, " ");
   }
+  return word.join("");
+}
 
-  console.log(word.join(""));
+// ----------------- UI Logic below -----------------  //
 
+function gridBuilder(length, height) {
+  var totalCells = 0
+  var htmlCode = "<table>\n"
+
+  for (var h=0; h<height; h++) {
+    htmlCode = htmlCode + "\t<tr>\n"
+    for (var l=0; l<length; l++) {
+      htmlCode = htmlCode + '\t\t<td id="cell-'+ totalCells++ + '"></td> \n';
+    }
+    htmlCode = htmlCode + "\t</tr>\n"
+  }
+  htmlCode = htmlCode + "</table>\n";
+
+  return htmlCode;
+}
+
+function gridFiller(cleanArray) {
+  var iMax = cleanArray.length;
+
+  for (var i=0; i<iMax; i++) {
+    $("#cell-"+i).text(cleanArray[i]);
+  }
 
 }
 
 $(function() {
 
+
   $("#formOne").submit(function(e) {
     e.preventDefault();
-
-    var userInput = $("#user-sentence").val()
-
-    // console.log(alphaCharsOnly(userInput));
-
+    var userInput = $("#user-sentence").val();
     var cleanedSentence = alphaCharsOnly(userInput);
-    var coords = buildCypherGrid(cleanedSentence.length);
 
-    cleanedResults(createCypherArray(cleanedSentence, coords.length, coords.height));
-    // coords.height
-    // coord.length
+    var coords = buildCypherGrid(cleanedSentence.length);
+    var cypherArray = createCypherArray(cleanedSentence, coords.length, coords.height)
+    var spyLanguage = cleanedResults(cypherArray);
+
+    $("#coded-message").text(spyLanguage);
+    $("#user-sentence").val("");
+
+    var gridPattern = gridBuilder(coords.length, coords.height);
+
+    $("#results-graph").append(gridPattern);
+
+    gridFiller(cleanedSentence);
+
+    $(".result-area").show();
+
 
 
 
